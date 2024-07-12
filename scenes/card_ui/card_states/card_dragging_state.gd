@@ -9,8 +9,8 @@ func enter() -> void:
 	if ui_layer:
 		card_ui.reparent(ui_layer)
 	
-	card_ui.color.color = Color.NAVY_BLUE
-	card_ui.state.text = "DRAGGING"
+	card_ui.panel.set("theme_override_styles/panel", card_ui.DRAG_STYLEBOX)
+	Events.card_drag_started.emit(card_ui)
 	
 	minimum_drag_time_elapsed = false
 	var threshold_timer := get_tree().create_timer(DRAG_MINIMUM_THRESHOLD, false)
@@ -34,3 +34,6 @@ func on_input(event: InputEvent) -> void:
 	elif minimum_drag_time_elapsed and confirm:
 		get_viewport().set_input_as_handled()
 		transition_requested.emit(self, CardState.State.RELEASED)
+
+func exit() -> void:
+	Events.card_drag_ended.emit(card_ui)
