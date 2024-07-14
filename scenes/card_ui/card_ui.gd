@@ -17,12 +17,12 @@ const HOVER_STYLEBOX := preload("res://scenes/card_ui/card_hover_stylebox.tres")
 @onready var drop_point_detector: Area2D = $DropPointDetector
 @onready var card_state_machine: CardStateMachine = $CardStateMachine as CardStateMachine
 @onready var targets: Array[Node] = []
-@onready var original_index := self.get_index()
 
 var parent: Control
 var tween: Tween
 var playable := true : set = _set_playable
 var disabled := false
+var original_index := 0
 
 func _ready() -> void:
 	Events.card_aim_started.connect(_on_card_drag_or_aiming_started)
@@ -71,7 +71,7 @@ func _on_card_drag_or_aiming_started(used_card: CardUI) -> void:
 	
 	disabled = true
 
-func _on_card_drag_or_aiming_ended(used_card: CardUI) -> void:
+func _on_card_drag_or_aiming_ended(_used_card: CardUI) -> void:
 	disabled = false
 	self.playable = char_stats.can_play_card(card)
 
