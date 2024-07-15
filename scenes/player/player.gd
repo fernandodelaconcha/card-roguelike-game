@@ -4,7 +4,7 @@ extends Node2D
 @export var stats: CharacterStats : set = set_character_stats
 
 @onready var sprite_2d: Sprite2D = $Sprite2D
-@onready var stats_ui: HBoxContainer = $StatsUI as StatsUI
+@onready var stats_ui: StatsUI = $StatsUI
 
 const WHITE_SPRITE_MATERIAL := preload("res://art/white_sprite_material.tres")
 
