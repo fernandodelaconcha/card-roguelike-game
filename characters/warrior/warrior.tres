@@ -6,6 +6,9 @@
 
 [resource]
 script = ExtResource("1_7wue4")
+character_name = "Warrior"
+description = "Likes to slice things up."
+portrait = ExtResource("1_gv816")
 starting_deck = ExtResource("3_3chqp")
 cards_per_turn = 4
 max_mana = 3
