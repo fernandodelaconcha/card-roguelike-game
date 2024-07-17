@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://c8587mrgtbnq2"]
+
+[ext_resource type="Script" path="res://scenes/ui/gold_ui.gd" id="1_f76xp"]
+[ext_resource type="Texture2D" uid="uid://dhmtctwb5ymhc" path="res://art/gold.png" id="1_hat10"]
+
+[node name="GoldUI" type="HBoxContainer"]
+offset_right = 32.0
+offset_bottom = 8.0
+size_flags_vertical = 4
+theme_override_constants/separation = 2
+script = ExtResource("1_f76xp")
+
+[node name="Icon" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+texture = ExtResource("1_hat10")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Amount" type="Label" parent="."]
+layout_mode = 2
+size_flags_vertical = 1
+text = "9999"
+horizontal_alignment = 2
+vertical_alignment = 1
