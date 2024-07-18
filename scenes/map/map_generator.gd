@@ -19,9 +19,6 @@ var random_room_type_weights = {
 var random_room_type_total_weight := 0
 var map_data: Array[Array]
 
-func _ready() -> void:
-	generate_map()
-
 func generate_map() -> Array[Array]:
 	map_data = _generate_initial_grid()
 	var starting_points := _get_random_starting_points()
@@ -34,15 +31,6 @@ func generate_map() -> Array[Array]:
 	_setup_boss_room()
 	_setup_random_room_weights()
 	_setup_room_types()
-	
-	var i := 0
-	for floor in map_data:
-		print("floor %s" % i)
-		var used_rooms = floor.filter(
-			func(room: Room): return room.next_rooms.size() > 0
-		)
-		print(used_rooms)
-		i += 1
 	
 	return map_data
 
