@@ -1,6 +1,127 @@
-[gd_scene load_steps=2 format=3 uid="uid://cvjn5bympdd4v"]
+[gd_scene load_steps=14 format=3 uid="uid://cvjn5bympdd4v"]
 
 [ext_resource type="Script" path="res://scenes/campfire/campfire.gd" id="1_fexd0"]
+[ext_resource type="Texture2D" uid="uid://djbldcvfo4swr" path="res://art/line.png" id="2_f7yye"]
+
+[sub_resource type="Gradient" id="Gradient_mmjdv"]
+offsets = PackedFloat32Array(0.300725, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.4, 0.219608, 0.203922, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ifi0i"]
+gradient = SubResource("Gradient_mmjdv")
+fill_from = Vector2(0.5, 0)
+fill_to = Vector2(0.5, 1)
+metadata/_snap_enabled = true
+metadata/_snap_count = 8
+
+[sub_resource type="Gradient" id="Gradient_hkr66"]
+offsets = PackedFloat32Array(0, 0.188525, 0.565574, 0.77459, 1)
+colors = PackedColorArray(0.901961, 0.854902, 0.0588235, 1, 0.796078, 0.419608, 0.027451, 1, 0.886275, 0.239216, 0.211765, 1, 0.537696, 0.0661768, 0.020251, 1, 0.796078, 0.419608, 0.027451, 0.337255)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_luq10"]
+gradient = SubResource("Gradient_hkr66")
+
+[sub_resource type="Curve" id="Curve_6o8iy"]
+_data = [Vector2(0, 0.30287), 0.0, -0.712185, 0, 0, Vector2(0.209559, 1), 0.0, 0.0, 0, 0, Vector2(0.841912, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.646526), 1.03382, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_25a4f"]
+curve = SubResource("Curve_6o8iy")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7b2x1"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 25.0
+angle_min = 60.0
+angle_max = 120.0
+direction = Vector3(0, -1, 0)
+spread = 10.0
+initial_velocity_min = 50.0
+initial_velocity_max = 50.0
+gravity = Vector3(0, 0, 0)
+linear_accel_min = 15.0
+linear_accel_max = 25.0
+damping_min = 20.0
+damping_max = 50.0
+scale_curve = SubResource("CurveTexture_25a4f")
+color_ramp = SubResource("GradientTexture1D_luq10")
+
+[sub_resource type="LabelSettings" id="LabelSettings_2plcl"]
+font_size = 12
+
+[sub_resource type="Animation" id="Animation_qrbyp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ParticlesLayer/GPUParticles2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("UILayer/UI:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_1xofq"]
+resource_name = "fade_out"
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_on_fade_out_finished"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ParticlesLayer/GPUParticles2D:modulate")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.3, 0.8),
+"transitions": PackedFloat32Array(1, 2),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("UILayer/UI:modulate")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.3, 0.8),
+"transitions": PackedFloat32Array(1, 2),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_khqbf"]
+_data = {
+"RESET": SubResource("Animation_qrbyp"),
+"fade_out": SubResource("Animation_1xofq")
+}
 
 [node name="Campfire" type="Control"]
 layout_mode = 3
@@ -11,40 +132,67 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_fexd0")
 
-[node name="ColorRect" type="ColorRect" parent="."]
-layout_mode = 1
+[node name="BackgroundLayer" type="CanvasLayer" parent="."]
+layer = 0
+
+[node name="Background" type="TextureRect" parent="BackgroundLayer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
-color = Color(0, 0, 0, 0.505882)
+texture = SubResource("GradientTexture2D_ifi0i")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-layout_mode = 1
+[node name="ParticlesLayer" type="CanvasLayer" parent="."]
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="ParticlesLayer"]
+position = Vector2(63, 99)
+amount = 128
+process_material = SubResource("ParticleProcessMaterial_7b2x1")
+texture = ExtResource("2_f7yye")
+lifetime = 1.5
+
+[node name="UILayer" type="CanvasLayer" parent="."]
+
+[node name="UI" type="VBoxContainer" parent="UILayer"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
+offset_left = 17.0
+offset_top = -28.0
+offset_right = 81.0
+offset_bottom = 28.0
 grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="Label" type="Label" parent="VBoxContainer"]
+[node name="Title" type="Label" parent="UILayer/UI"]
 layout_mode = 2
 text = "Campfire"
+label_settings = SubResource("LabelSettings_2plcl")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Button" type="Button" parent="VBoxContainer"]
-custom_minimum_size = Vector2(0, 14)
+[node name="Spacer" type="Control" parent="UILayer/UI"]
+custom_minimum_size = Vector2(0, 12)
 layout_mode = 2
-text = "Go back"
 
-[connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_button_pressed"]
+[node name="RestButton" type="Button" parent="UILayer/UI"]
+custom_minimum_size = Vector2(40, 14)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Rest"
+
+[node name="Description" type="Label" parent="UILayer/UI"]
+layout_mode = 2
+text = "+30% HP"
+horizontal_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_khqbf")
+}
+
+[connection signal="pressed" from="UILayer/UI/RestButton" to="." method="_on_rest_button_pressed"]

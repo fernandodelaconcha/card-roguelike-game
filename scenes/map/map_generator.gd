@@ -169,7 +169,7 @@ func _set_room_randomly(room: Room) -> void:
 		var is_shop := type_candidate == Room.Type.SHOP
 		var has_shop_parent := _room_has_parent_of_type(room, Room.Type.SHOP)
 		
-		campfire_under_limit = is_campfire and room.row < floori(FLOORS / 5)
+		campfire_under_limit = is_campfire and room.row < floori(FLOORS / 5.0)
 		consecutive_campfire = is_campfire and has_campfire_parent
 		consecutive_shop = is_shop and has_shop_parent
 		campfire_before_boss = is_campfire and room.row == 12

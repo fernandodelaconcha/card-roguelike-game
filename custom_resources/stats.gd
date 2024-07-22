@@ -10,11 +10,11 @@ var health: int : set = set_health
 var block: int : set = set_block
 
 func set_health(value: int) -> void:
-	health = clamp(value, 0, max_health)
+	health = clampi(value, 0, max_health)
 	stats_changed.emit()
 
 func set_block(value: int) -> void:
-	block = clamp(value, 0, 999)
+	block = clampi(value, 0, 999)
 	stats_changed.emit()
 
 func take_damage(damage: int) -> void:

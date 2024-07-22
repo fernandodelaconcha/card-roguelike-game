@@ -11,7 +11,8 @@ extends Node2D
 @onready var player: Player = $Player
 
 func _ready() -> void:	
-	enemy_handler.child_order_changed.connect(_on_enemy_handler_child_order_changed)
+	if not enemy_handler.child_order_changed.is_connected(_on_enemy_handler_child_order_changed):
+		enemy_handler.child_order_changed.connect(_on_enemy_handler_child_order_changed)
 	Events.enemy_turn_ended.connect(_on_enemy_turn_ended)
 	
 	Events.player_turn_ended.connect(player_handler.end_turn)
