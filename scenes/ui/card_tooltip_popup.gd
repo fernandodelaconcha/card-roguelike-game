@@ -20,9 +20,9 @@ func show_tooltip(card: Card) -> void:
 	tooltip_card.add_child(new_card)
 	new_card.card = card
 	new_card.tooltip_requested.connect(hide_tooltip.unbind(1))
-	card_description.text = card.tooltip_text
+	card_description.text = card.get_default_tooltip()
 	show()
-	
+
 func hide_tooltip() -> void:
 	if not visible:
 		return
@@ -31,7 +31,7 @@ func hide_tooltip() -> void:
 		card.queue_free()
 	
 	hide()
-	
+
 func _on_gui_input(event: InputEvent) -> void:
 	if event.is_action_pressed("left_mouse"):
 		hide_tooltip()

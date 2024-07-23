@@ -62,6 +62,17 @@ func play() -> void:
 	card.play(targets, char_stats, player_modifiers)
 	queue_free()
 
+func get_active_enemy_modifiers() -> ModifierHandler:
+	if targets.is_empty() or targets.size() > 1 or not targets[0] is Enemy:
+		return null
+	
+	return targets[0].modifier_handler
+
+func request_tooltip() -> void:
+	var enemy_modifiers := get_active_enemy_modifiers()
+	var updated_tooltip := card.get_updated_tooltip(player_modifiers, enemy_modifiers)
+	Events.card_tooltip_requested.emit(card.icon, updated_tooltip)
+
 func _on_card_drag_or_aiming_started(used_card: CardUI) -> void:
 	if used_card == self:
 		return

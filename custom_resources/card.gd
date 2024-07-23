@@ -53,3 +53,9 @@ func play(targets: Array[Node], char_stats: CharacterStats, modifiers: ModifierH
 
 func apply_effects(_targets: Array[Node], _modifiers: ModifierHandler) -> void:
 	pass
+
+func get_default_tooltip() -> String:
+	return tooltip_text
+
+func get_updated_tooltip(player_modifiers: ModifierHandler, enemy_modifiers: ModifierHandler) -> String:
+	return tooltip_text

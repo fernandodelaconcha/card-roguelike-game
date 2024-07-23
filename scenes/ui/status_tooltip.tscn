@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://c6cbbe5p57rm3"]
+
+[ext_resource type="Texture2D" uid="uid://2egbj0w2asc2" path="res://art/expose.png" id="1_4h304"]
+[ext_resource type="Script" path="res://scenes/ui/status_tooltip.gd" id="1_4yfjq"]
+[ext_resource type="Resource" uid="uid://ddku1m4gxnel8" path="res://statuses/muscle.tres" id="2_8qoub"]
+
+[node name="StatusTooltip" type="HBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+offset_right = 150.0
+offset_bottom = 15.0
+script = ExtResource("1_4yfjq")
+status = ExtResource("2_8qoub")
+
+[node name="Icon" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 2
+texture = ExtResource("1_4h304")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="."]
+custom_minimum_size = Vector2(110, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Takes a lot of damage. Takes a lot of damage"
+vertical_alignment = 1
+autowrap_mode = 2

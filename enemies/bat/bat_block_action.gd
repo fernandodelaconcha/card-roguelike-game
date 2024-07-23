@@ -15,3 +15,10 @@ func perform_action() -> void:
 		func():
 			Events.enemy_action_completed.emit(enemy)
 	)
+
+func update_intent_text() -> void:
+	var player := target as Player
+	if not player:
+		return
+	
+	intent.current_text = intent.base_text % block
