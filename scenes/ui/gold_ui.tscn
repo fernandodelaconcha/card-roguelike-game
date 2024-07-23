@@ -6,7 +6,6 @@
 [node name="GoldUI" type="HBoxContainer"]
 offset_right = 32.0
 offset_bottom = 8.0
-size_flags_vertical = 4
 theme_override_constants/separation = 2
 script = ExtResource("1_f76xp")
 

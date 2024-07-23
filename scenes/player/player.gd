@@ -5,8 +5,12 @@ extends Node2D
 
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var stats_ui: StatsUI = $StatsUI
+@onready var status_handler: StatusHandler = $StatusHandler
 
 const WHITE_SPRITE_MATERIAL := preload("res://art/white_sprite_material.tres")
+
+func _ready() -> void:
+	status_handler.status_owner = self
 
 func set_character_stats(value: CharacterStats) -> void:
 	stats = value
@@ -42,6 +46,7 @@ func take_damage(damage: int) -> void:
 	tween.finished.connect(
 		func():
 			sprite_2d.material = null
+			
 			if stats.health <= 0:
 				Events.player_died.emit()
 				queue_free()

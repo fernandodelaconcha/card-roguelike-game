@@ -1,5 +1,6 @@
 # meta-name: EnemyAction
 # meta-description: An action which can be performed by an enemy during its turn.
+class_name MyEnemyAction
 extends EnemyAction
 
 func perform_action() -> void:
