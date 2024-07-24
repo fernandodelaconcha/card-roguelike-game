@@ -40,3 +40,6 @@ signal battle_reward_exited
 
 #treasure room related events
 signal treasure_exited
+
+#relic related events
+signal relic_tooltip_requested(relic: Relic)

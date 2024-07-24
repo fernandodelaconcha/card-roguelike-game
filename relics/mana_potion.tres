@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ManaPotion" load_steps=3 format=3 uid="uid://1qnbj1tlbvt0"]
+
+[ext_resource type="Texture2D" uid="uid://c2xhttrclo1r7" path="res://art/tile_0116.png" id="1_cikmo"]
+[ext_resource type="Script" path="res://relics/mana_potion.gd" id="2_5wsol"]
+
+[resource]
+script = ExtResource("2_5wsol")
+mana_amount = 1
+relic_name = "Mana Potion"
+id = "Mana Potion"
+type = 1
+character_type = 0
+starter_relic = false
+icon = ExtResource("1_cikmo")
+tooltip = "[color=\"ffdf00\"]Mana Potion[/color]
+At the start of combat, gain %s mana"

@@ -1,4 +1,4 @@
-# meta-name: Card Logic
+# meta-name: Card
 # meta-description: What happens when a card is played.
 class_name MyCard
 extends Card
