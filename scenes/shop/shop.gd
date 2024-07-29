@@ -14,6 +14,7 @@ const SHOP_RELIC = preload("res://scenes/shop/shop_relic.tscn")
 @onready var shop_keeper_animation: AnimationPlayer = %ShopKeeperAnimation
 @onready var blink_timer: Timer = %BlinkTimer
 @onready var card_tooltip_popup: CardTooltipPopup = %CardTooltipPopup
+@onready var modifier_handler: ModifierHandler = $ModifierHandler
 
 func _ready() -> void:
 	for shop_card: ShopCard in cards.get_children():
@@ -51,6 +52,7 @@ func _generate_shop_cards() -> void:
 		cards.add_child(new_shop_card)
 		new_shop_card.card = card
 		new_shop_card.current_card_ui.tooltip_requested.connect(card_tooltip_popup.show_tooltip)
+		new_shop_card.gold_cost = _get_update_shop_cost(new_shop_card.gold_cost)
 		new_shop_card.update(run_stats)
 
 func _generate_shop_relics() -> void:
@@ -68,6 +70,7 @@ func _generate_shop_relics() -> void:
 		var new_shop_relic := SHOP_RELIC.instantiate() as ShopRelic
 		relics.add_child(new_shop_relic)
 		new_shop_relic.relic = relic
+		new_shop_relic.gold_cost = _get_update_shop_cost(new_shop_relic.gold_cost)
 		new_shop_relic.update(run_stats)
 
 func _update_items() -> void:
@@ -76,6 +79,15 @@ func _update_items() -> void:
 	
 	for shop_relics: ShopRelic in relics.get_children():
 		shop_relics.update(run_stats)
+
+func _update_item_costs() -> void:
+	for shop_card: ShopCard in cards.get_children():
+		shop_card.gold_cost = _get_update_shop_cost(shop_card.gold_cost)
+		shop_card.update(run_stats)
+	
+	for shop_relic: ShopRelic in relics.get_children():
+		shop_relic.gold_cost = _get_update_shop_cost(shop_relic.gold_cost)
+		shop_relic.update(run_stats)
 
 func _on_back_button_pressed() -> void:
 	Events.shop_exited.emit()
@@ -88,8 +100,17 @@ func _on_shop_card_bought(card: Card, gold_cost: int) -> void:
 func _on_shop_relic_bought(relic: Relic, gold_cost: int) -> void:
 	relic_handler.add_relic(relic)
 	run_stats.gold -= gold_cost
-	_update_items()
+	
+	if relic is CouponsRelic:
+		var coupons_relic := relic as CouponsRelic
+		coupons_relic.add_shop_modifier(self)
+		_update_item_costs()
+	else:
+		_update_items()
 
 func _on_blink_timer_timeout() -> void:
 	shop_keeper_animation.play("blink")
 	_blink_timer_setup()
+
+func _get_update_shop_cost(value: int) -> int:
+	return modifier_handler.get_modified_value(value, Modifier.Type.SHOP_COST)
