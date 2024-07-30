@@ -1,0 +1,85 @@
+[gd_scene load_steps=6 format=3 uid="uid://c7bcbpww4sbqx"]
+
+[ext_resource type="Script" path="res://scenes/win_screen/win_screen.gd" id="1_66a1k"]
+[ext_resource type="Texture2D" uid="uid://cpydvk8mq66o5" path="res://art/tile_0087.png" id="3_qhmja"]
+
+[sub_resource type="Gradient" id="Gradient_avj1p"]
+colors = PackedColorArray(0.321378, 0.13825, 0.0280235, 1, 0, 0, 0, 0.764706)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_fa68i"]
+gradient = SubResource("Gradient_avj1p")
+width = 50
+
+[sub_resource type="LabelSettings" id="LabelSettings_c57bf"]
+font_size = 12
+shadow_size = 4
+shadow_color = Color(0.6, 0.282353, 0.0901961, 1)
+
+[node name="WinScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_66a1k")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture1D_fa68i")
+
+[node name="CharacterPortrait" type="TextureRect" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -109.0
+offset_top = -12.0
+offset_right = -49.0
+offset_bottom = 48.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_qhmja")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Container" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -67.0
+offset_top = -32.0
+offset_right = 117.0
+offset_bottom = 14.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="Message" type="Label" parent="Container"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "The Warrior is victorious"
+label_settings = SubResource("LabelSettings_c57bf")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MainMenuButton" type="Button" parent="Container"]
+custom_minimum_size = Vector2(60, 14)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Main Menu
+"
+
+[connection signal="pressed" from="Container/MainMenuButton" to="." method="_on_main_menu_button_pressed"]

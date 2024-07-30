@@ -1,0 +1,49 @@
+[gd_scene load_steps=14 format=3 uid="uid://ceoky7uondawu"]
+
+[ext_resource type="Script" path="res://scenes/enemy/enemy_action_picker.gd" id="1_ysc6n"]
+[ext_resource type="Script" path="res://enemies/toxic_ghost/toxic_ghost_muscle_buff_action.gd" id="2_kysap"]
+[ext_resource type="Texture2D" uid="uid://cn2c1psh561cc" path="res://art/tile_0127.png" id="3_87m3s"]
+[ext_resource type="Script" path="res://custom_resources/intent.gd" id="4_7ylne"]
+[ext_resource type="AudioStream" uid="uid://k8m4o3hlwm7l" path="res://art/enemy_block.ogg" id="5_b6d3f"]
+[ext_resource type="Script" path="res://enemies/toxic_ghost/toxic_ghost_attack_action.gd" id="6_1ai52"]
+[ext_resource type="Texture2D" uid="uid://cul5qoemvh5nu" path="res://art/attack_negative.png" id="7_blfyp"]
+[ext_resource type="AudioStream" uid="uid://de2ryat1pxq6" path="res://art/enemy_attack.ogg" id="8_5hco6"]
+[ext_resource type="Script" path="res://enemies/toxic_ghost/toxic_ghost_block_action.gd" id="9_ccyux"]
+[ext_resource type="Texture2D" uid="uid://oe7v35ii8vrs" path="res://art/tile_0102.png" id="10_0cfka"]
+
+[sub_resource type="Resource" id="Resource_c4nbm"]
+script = ExtResource("4_7ylne")
+base_text = ""
+icon = ExtResource("3_87m3s")
+
+[sub_resource type="Resource" id="Resource_08owh"]
+script = ExtResource("4_7ylne")
+base_text = "%s"
+icon = ExtResource("7_blfyp")
+
+[sub_resource type="Resource" id="Resource_yndxw"]
+script = ExtResource("4_7ylne")
+base_text = ""
+icon = ExtResource("10_0cfka")
+
+[node name="ToxicGhostAI" type="Node"]
+script = ExtResource("1_ysc6n")
+
+[node name="MuscleBuffAction" type="Node" parent="."]
+script = ExtResource("2_kysap")
+intent = SubResource("Resource_c4nbm")
+sound = ExtResource("5_b6d3f")
+
+[node name="AttackAction" type="Node" parent="."]
+script = ExtResource("6_1ai52")
+intent = SubResource("Resource_08owh")
+sound = ExtResource("8_5hco6")
+type = 1
+change_weight = 6.5
+
+[node name="BlockAction" type="Node" parent="."]
+script = ExtResource("9_ccyux")
+intent = SubResource("Resource_yndxw")
+sound = ExtResource("5_b6d3f")
+type = 1
+change_weight = 3.5
