@@ -22,7 +22,8 @@ func _ready() -> void:
 
 func start_battle() -> void:
 	get_tree().paused = false
-	MusicPlayer.play(music, true)
+	if music:
+		MusicPlayer.play(music, true)
 	
 	battle_ui.char_stats = char_stats
 	player.stats = char_stats

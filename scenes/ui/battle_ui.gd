@@ -3,7 +3,7 @@ extends CanvasLayer
 
 @export var char_stats: CharacterStats : set = _set_char_stats
 
-@onready var hand: HBoxContainer = $Hand
+@onready var hand: Control = $Hand
 @onready var mana_ui: Panel = $ManaUI
 @onready var end_turn_button: Button = %EndTurnButton
 @onready var draw_pile_button: CardPileOpener = %DrawPileButton

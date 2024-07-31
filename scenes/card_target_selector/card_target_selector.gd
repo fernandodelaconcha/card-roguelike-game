@@ -1,6 +1,8 @@
 extends Node2D
 
 const ARC_POINTS := 8
+# TODO replace for constant number
+const CARD_SIZE := Vector2(26, 40)
 
 @onready var area_2d: Area2D = $Area2D
 @onready var card_arc: Line2D = $CanvasLayer/CardArc
@@ -22,7 +24,9 @@ func _process(_delta: float) -> void:
 func _get_points() -> Array:
 	var points := []
 	var start := current_card.global_position
-	start.x += (current_card.size.x / 2)
+	start.x += CARD_SIZE.x
+	start.y += CARD_SIZE.y / 2
+	
 	var target := get_local_mouse_position()
 	var distance := (target - start)
 	

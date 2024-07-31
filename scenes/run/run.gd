@@ -20,6 +20,7 @@ const MAIN_MENU_PATH := "res://scenes/ui/main_menu.tscn"
 @onready var deck_button: CardPileOpener = %DeckButton
 @onready var deck_view: CardPileView = %DeckView
 @onready var pause_menu: PauseMenu = $PauseMenu
+@export var music: AudioStream
 
 @onready var map_button: Button = %MapButton
 @onready var battle_button: Button = %BattleButton
@@ -33,6 +34,9 @@ var character: CharacterStats
 var save_data: SaveGame
 
 func _ready() -> void:	
+	#TODO: if battle has special music e.g boss, run music will be overriden
+	MusicPlayer.play(music, true)
+	
 	if not run_startup:
 		return
 	

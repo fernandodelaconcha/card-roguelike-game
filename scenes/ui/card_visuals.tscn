@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://du7r7v1iaahuo" path="res://art/rarity.png" id="4_h0gbo"]
 
 [node name="CardVisuals" type="Control"]
-custom_minimum_size = Vector2(25, 30)
+custom_minimum_size = Vector2(26, 40)
 layout_mode = 3
 anchors_preset = 0
 theme = ExtResource("1_cr07d")
@@ -38,12 +38,13 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -5.0
+offset_left = -7.0
 offset_top = -5.0
-offset_right = 5.0
+offset_right = 3.0
 offset_bottom = 5.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(1.5, 1.5)
 mouse_filter = 2
 texture = ExtResource("3_j1bbl")
 expand_mode = 1

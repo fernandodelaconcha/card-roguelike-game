@@ -70,6 +70,7 @@ func reshuffle_deck_from_discard() -> void:
 	character.draw_pile.shuffle()
 
 func _on_card_played(card: Card) -> void:
+	hand.update_cards()
 	if card.exhausts or card.type == Card.Type.POWER:
 		return
 	

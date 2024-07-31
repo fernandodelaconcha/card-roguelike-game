@@ -28,6 +28,9 @@ func on_mouse_entered() -> void:
 	if not card_ui.playable or card_ui.disabled:
 		return
 	
+	var staging_position := Vector2(card_ui.global_position.x, card_ui.parent.global_position.y - 10)
+	card_ui.animate_to_position(staging_position, 0.2)
+	card_ui.rotation_degrees = 0
 	card_ui.card_visuals.panel.set("theme_override_styles/panel", card_ui.HOVER_STYLEBOX)
 	card_ui.request_tooltip()
 	
@@ -37,5 +40,9 @@ func on_mouse_exited() -> void:
 	if not card_ui.playable or card_ui.disabled:
 		return
 	
+	if card_ui.tween and card_ui.tween.is_running():
+		card_ui.tween.kill()
+	
 	card_ui.card_visuals.panel.set("theme_override_styles/panel", card_ui.BASE_STYLEBOX)
 	Events.tooltip_hide_requested.emit()
+	card_ui.parent.update_cards()

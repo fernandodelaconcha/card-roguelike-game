@@ -16,7 +16,7 @@ const HOVER_STYLEBOX := preload("res://scenes/card_ui/card_hover_stylebox.tres")
 @onready var card_state_machine: CardStateMachine = $CardStateMachine
 @onready var targets: Array[Node] = []
 
-var parent: Control
+var parent: Hand
 var tween: Tween
 var playable := true : set = _set_playable
 var disabled := false

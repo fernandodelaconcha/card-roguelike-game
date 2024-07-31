@@ -1,11 +1,10 @@
-[gd_scene load_steps=24 format=3 uid="uid://b2r33hk1au1yl"]
+[gd_scene load_steps=25 format=3 uid="uid://b2r33hk1au1yl"]
 
 [ext_resource type="Texture2D" uid="uid://cp4iq5fd6j8be" path="res://art/background.png" id="1_pfmbp"]
 [ext_resource type="Script" path="res://scenes/battle/battle.gd" id="1_tbias"]
 [ext_resource type="PackedScene" uid="uid://dtk65wvu7pxeh" path="res://scenes/enemy/enemy.tscn" id="2_8xlke"]
 [ext_resource type="Script" path="res://scenes/ui/hand.gd" id="2_ijr8t"]
 [ext_resource type="PackedScene" uid="uid://cvutv3l6oo1kh" path="res://scenes/card_target_selector/card_target_selector.tscn" id="3_6vm66"]
-[ext_resource type="AudioStream" uid="uid://dpdenqqbovwfq" path="res://art/8_bit_iced_village_lofi.mp3" id="3_ceh30"]
 [ext_resource type="PackedScene" uid="uid://i5hvxqjerfm0" path="res://scenes/player/player.tscn" id="3_l83kd"]
 [ext_resource type="Resource" uid="uid://d2g8k8rqqorkx" path="res://characters/warrior/warrior.tres" id="4_envwt"]
 [ext_resource type="Script" path="res://scenes/enemy/enemy_handler.gd" id="4_ur42w"]
@@ -26,10 +25,18 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0gika"]
 size = Vector2(256, 100)
 
+[sub_resource type="Curve" id="Curve_v7ky0"]
+_data = [Vector2(0, 0), 0.0, 6.0, 0, 0, Vector2(0.496667, 1), 0.0, 0.0, 0, 0, Vector2(0.996667, 0), -6.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_egwoh"]
+min_value = -1.0
+_data = [Vector2(0, -1), 0.0, 6.0, 0, 0, Vector2(0.5, 1.49012e-08), 0.0, 0.0, 0, 0, Vector2(1, 1), 6.0, 0.0, 0, 0]
+point_count = 3
+
 [node name="Battle" type="Node2D"]
 script = ExtResource("1_tbias")
 char_stats = ExtResource("4_envwt")
-music = ExtResource("3_ceh30")
 metadata/_edit_lock_ = true
 
 [node name="Background" type="Sprite2D" parent="."]
@@ -75,20 +82,25 @@ hand = NodePath("../BattleUI/Hand")
 [node name="BattleUI" type="CanvasLayer" parent="." groups=["ui_layer"]]
 script = ExtResource("7_y8mfm")
 
-[node name="Hand" type="HBoxContainer" parent="BattleUI" node_paths=PackedStringArray("player")]
+[node name="Hand" type="Container" parent="BattleUI" node_paths=PackedStringArray("player")]
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -75.0
-offset_top = -30.0
-offset_right = 75.0
+offset_left = -55.97
+offset_top = -40.0
+offset_right = 55.97
 grow_horizontal = 2
 grow_vertical = 0
-alignment = 1
 script = ExtResource("2_ijr8t")
 player = NodePath("../../Player")
+hand_curve = SubResource("Curve_v7ky0")
+rotation_curve = SubResource("Curve_egwoh")
+max_rotation_degrees = 10
+x_sep = -20
+y_min = 10
+y_max = -10
 
 [node name="ManaUI" parent="BattleUI" instance=ExtResource("11_gf1yp")]
 offset_top = -42.0
