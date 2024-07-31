@@ -9,7 +9,7 @@ const CARD_MENU_UI = preload("res://scenes/ui/card_menu_ui.tscn")
 @onready var price: HBoxContainer = $Price
 @onready var price_label: Label = %PriceLabel
 @onready var buy_button: Button = %BuyButton
-@onready var gold_cost := randi_range(100, 300)
+@onready var gold_cost := RNG.instance.randi_range(100, 300)
 
 var current_card_ui: CardMenuUI
 
@@ -19,7 +19,7 @@ func update(run_stats: RunStats) -> void:
 	
 	price_label.text = str(gold_cost)
 	
-	if run_stats.gold > gold_cost:
+	if run_stats.gold >= gold_cost:
 		price_label.remove_theme_color_override("font_color")
 		buy_button.disabled = false
 	else:

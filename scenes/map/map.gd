@@ -19,9 +19,10 @@ var camera_edge_y: float
 func _ready() -> void:
 	camera_edge_y = MapGenerator.Y_DIST * (MapGenerator.FLOORS - 1)
 
-func _input(event: InputEvent) -> void:
+func _unhandled_input(event: InputEvent) -> void:
 	if not visible:
 		return
+	
 	if event.is_action_pressed("scroll_up"):
 		camera_2d.position.y -= SCROLL_SPEED
 	elif event.is_action_pressed("scroll_down"):
@@ -33,6 +34,17 @@ func generate_new_map() -> void:
 	floors_climbed = 0
 	map_data = map_generator.generate_map()
 	create_map()
+
+func load_map(map: Array[Array], floors_completed: int, last_room_completed: Room) -> void:
+	floors_climbed = floors_completed
+	map_data = map
+	last_room = last_room_completed
+	create_map()
+	
+	if floors_climbed > 0:
+		unlock_next_rooms()
+	else:
+		unlock_floor()
 
 func create_map() -> void:
 	for current_floor: Array in map_data:
@@ -69,6 +81,7 @@ func _spawn_room(room: Room) -> void:
 	var new_map_room := MAP_ROOM.instantiate() as MapRoom
 	rooms.add_child(new_map_room)
 	new_map_room.room = room
+	new_map_room.clicked.connect(_on_map_room_clicked)
 	new_map_room.selected.connect(_on_map_room_selected)
 	_connect_lines(room)
 	
@@ -85,11 +98,12 @@ func _connect_lines(room: Room) -> void:
 		new_map_line.add_point(next.position)
 		lines.add_child(new_map_line)
 
-func _on_map_room_selected(room: Room) -> void:
+func _on_map_room_clicked(room: Room) -> void:
 	for map_room: MapRoom in rooms.get_children():
 		if map_room.room.row == room.row:
 			map_room.available = false
-	
+
+func _on_map_room_selected(room: Room) -> void:
 	last_room = room
 	floors_climbed += 1
 	Events.map_exited.emit(room)

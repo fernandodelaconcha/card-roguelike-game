@@ -5,7 +5,7 @@ var base_block := 4
 func get_default_tooltip() -> String:
 	return tooltip_text % base_block
 
-func get_updated_tooltip(player_modifiers: ModifierHandler, enemy_modifiers: ModifierHandler) -> String:
+func get_updated_tooltip(_player_modifiers: ModifierHandler, _enemy_modifiers: ModifierHandler) -> String:
 	return tooltip_text % base_block
 	
 func apply_effects(targets: Array[Node], _modifiers: ModifierHandler) -> void:

@@ -27,7 +27,7 @@ func get_tooltip() -> String:
 
 func can_appear_as_reward(character: CharacterStats) -> bool:
 	if starter_relic:
-		false
+		return false
 	
 	if character_type == CharacterType.ALL:
 		return true

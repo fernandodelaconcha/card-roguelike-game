@@ -42,6 +42,9 @@ func add_card_reward() -> void:
 	rewards.add_child.call_deferred(card_reward)
 
 func add_relic_reward(relic: Relic) -> void:
+	if not relic:
+		return
+	
 	var relic_reward := REWARD_BUTTON.instantiate() as RewardButton
 	relic_reward.reward_icon = relic.icon
 	relic_reward.reward_text = relic.relic_name
@@ -57,11 +60,11 @@ func _show_card_rewards() -> void:
 	card_rewards.card_reward_selected.connect(_on_card_reward_taken)
 	
 	var card_reward_array: Array[Card] = []
-	var available_cards: Array[Card] = character_stats.draftable_cards.cards.duplicate(true)
+	var available_cards: Array[Card] = character_stats.draftable_cards.duplicate_cards()
 	
 	for i in run_stats.card_rewards:
 		_setup_card_chances()
-		var roll := randf_range(0.0, card_reward_total_weight)
+		var roll := RNG.instance.randf_range(0.0, card_reward_total_weight)
 		
 		for rarity: Card.Rarity in card_rarity_weights:
 			if card_rarity_weights[rarity] > roll:
@@ -91,7 +94,7 @@ func _get_random_available_card(available_cards: Array[Card], with_rarity: Card.
 		func(card: Card):
 			return card.rarity == with_rarity
 	)
-	return all_possible_cards.pick_random()
+	return RNG.array_pick_random(all_possible_cards)
 
 func _on_gold_reward_taken(amount: int) -> void:
 	if not run_stats:

@@ -18,11 +18,27 @@ func add_card(card: Card) -> void:
 	card_pile_size_changed.emit(cards.size())
 
 func shuffle() -> void:
-	cards.shuffle()
+	RNG.array_shuffle(cards)
 
 func clear() -> void:
 	cards.clear()
 	card_pile_size_changed.emit(cards.size())
+
+# due to godot duplicate issue
+func duplicate_cards() -> Array[Card]:
+	var new_array: Array[Card] = []
+	
+	for card: Card in cards:
+		new_array.append(card.duplicate())
+	
+	return new_array
+
+# due to godot duplicate issue
+func custom_duplicate() -> CardPile:
+	var new_card_pile := CardPile.new()
+	new_card_pile.cards = duplicate_cards()
+	
+	return new_card_pile
 
 func _to_string() -> String:
 	var _card_strings: PackedStringArray = []
